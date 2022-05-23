@@ -13,22 +13,24 @@ export class Pillars {
   private material: Material;
   private simplex: SimplexNoise;
   private simplexTime: number;
-  private zScale: ScaleLinear;
+  private zScale: ScaleLinear<number, number>;
 
   constructor() {
     this.objs = [];
 
     this.material = new THREE.MeshPhysicalMaterial({
-      color: "#2c2c2c",
-      reflectivity: 1,
+      color: "#383830",
+      // reflectivity: 1,
+      // metalness: .2,
+      // clearcoat: .01
     });
 
     // setup coordinates
-    const pillarCounts = [40, 40];
+    const pillarCounts = [80, 40];
     const range = [-5, 5];
-    const xScale = scaleLinear().domain([0, pillarCounts[0]]).range(range);
+    const xScale = scaleLinear().domain([0, pillarCounts[0]]).range([-10, 10]);
     const yScale = scaleLinear().domain([0, pillarCounts[1]]).range(range);
-    const zScale = scaleLinear().domain([0, 1]).range([1, 5]);
+    const zScale = scaleLinear().domain([0, 1]).range([1, 2]);
     this.zScale = zScale;
 
     // Noise
@@ -37,7 +39,7 @@ export class Pillars {
     this.simplexTime = 0;
 
     for (let i = 0; i < pillarCounts[0]; i++) {
-      for (let j = 0; j < pillarCounts[0]; j++) {
+      for (let j = 0; j < pillarCounts[1]; j++) {
         const r = (range[1] - range[0]) / pillarCounts[0];
         const mesh = new THREE.Mesh(new THREE.BoxGeometry(r, r), this.material);
         const x = xScale(i);
@@ -67,7 +69,7 @@ export class Pillars {
   }
 
   setZ(mesh: Mesh, x: number, y: number) {
-    const simplexScale = 0.4;
+    const simplexScale = 0.2
     const z = this.zScale(
       this.simplex.noise3D(
         simplexScale * x,
