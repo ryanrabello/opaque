@@ -5,7 +5,7 @@
   "homepage": "https://ryanrabello.github.io/opaque/",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build --base=/opaque",
+    "build": "tsc && vite build --base=/opaque/",
     "preview": "vite preview",
     "deploy": "yarn build && touch dist/.nojekyll && git add -f dist/** && git commit -m \"Deploy gh-pages\" && git subtree push --prefix dist origin gh-pages"
   },
