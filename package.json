@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "deploy": "yarn build && touch dist/.nojekyll && git add -f dist/** && git commit -m \"Deploy gh-pages\" && git subtree push --prefix dist origin gh-pages"
   },
   "devDependencies": {
     "typescript": "^4.5.4",
